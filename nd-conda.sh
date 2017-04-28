@@ -3,7 +3,8 @@
 if [[ $# == 1 ]]; then
     CONDA_ROOT=$1
 else
-    CONDA_ROOT=/var/lib/conda
+    echo "Please specify the desired conda installation path as the only argument."
+    exit 1
 fi
 
 # Get miniconda if it doesn't exist.
