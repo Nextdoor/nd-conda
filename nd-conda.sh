@@ -14,6 +14,7 @@ if [[ ! -f $CONDA_ROOT/installed ]]; then
         [[ ! -d $CONDA_ROOT ]] && mkdir $CONDA_ROOT
     else
         [[ ! -d $CONDA_ROOT ]] && sudo mkdir $CONDA_ROOT
+        [[ -z $USER ]] && USER=root
         sudo chown $USER $CONDA_ROOT
     fi
     if [[ "$(uname)" == "Darwin" ]]; then
