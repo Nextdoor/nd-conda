@@ -17,10 +17,11 @@ if [[ ! -f $CONDA_ROOT/installed ]]; then
         [[ -z $USER ]] && USER=root
         sudo chown $USER $CONDA_ROOT
     fi
+    # TODO(justyn): Flip back to using latest once 4.4.8 is released (contains a critical bug fix).
     if [[ "$(uname)" == "Darwin" ]]; then
-        URL="https://repo.continuum.io/miniconda/Miniconda3-latest-MacOSX-x86_64.sh"
+        URL="https://repo.continuum.io/miniconda/Miniconda3-4.3.31-MacOSX-x86_64.sh"
     else
-        URL="https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh"
+        URL="https://repo.continuum.io/miniconda/Miniconda3-4.3.31-Linux-x86_64.sh"
     fi
     curl "$URL" > miniconda.sh
     bash miniconda.sh -b -f -p $CONDA_ROOT
