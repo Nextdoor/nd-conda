@@ -3,12 +3,10 @@
 
 VERSION="4.3.11"
 
-# Allow CONDA_VERSION env variable to override the default
-if [[ $CONDA_VERSION ]]; then
-    VERSION=$CONDA_VERSION
-fi
-
-if [[ $# == 1 ]]; then
+if [[ $# == 2 ]]; then
+    CONDA_ROOT=$1
+    VERSION=$2
+elif [[ $# == 1 ]]; then
     CONDA_ROOT=$1
 else
     echo "Please specify the desired conda installation path as the only argument."
