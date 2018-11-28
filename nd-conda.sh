@@ -13,11 +13,6 @@ else
     exit 1
 fi
 
-echo $CONDA_ROOT
-echo $VERSION
-
-exit
-
 # Get miniconda if it doesn't exist.
 if [[ ! -f $CONDA_ROOT/installed ]]; then
     echo "Installing Conda version $VERSION to $CONDA_ROOT."
