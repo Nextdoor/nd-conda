@@ -1,7 +1,7 @@
 #!/bin/bash -e
 
 
-VERSION="4.3.11"
+VERSION="4.3.31"
 
 if [[ $# == 2 ]]; then
     CONDA_ROOT=$1
