@@ -17,7 +17,7 @@ fi
 
 # Get miniconda if it doesn't exist.
 if [[ ! -f $CONDA_ROOT/installed ]]; then
-    echo "Installing Conda version $CONDA_VERSION to $CONDA_ROOT."
+    echo "Installing Conda version $VERSION to $CONDA_ROOT."
     if ! which sudo > /dev/null; then
         [[ ! -d $CONDA_ROOT ]] && mkdir $CONDA_ROOT
     else
@@ -26,9 +26,9 @@ if [[ ! -f $CONDA_ROOT/installed ]]; then
         sudo chown $USER $CONDA_ROOT
     fi
     if [[ "$(uname)" == "Darwin" ]]; then
-        URL="https://repo.continuum.io/miniconda/Miniconda3-$CONDA_VERSION-MacOSX-x86_64.sh"
+        URL="https://repo.continuum.io/miniconda/Miniconda3-$VERSION-MacOSX-x86_64.sh"
     else
-        URL="https://repo.continuum.io/miniconda/Miniconda3-$CONDA_VERSION-Linux-x86_64.sh"
+        URL="https://repo.continuum.io/miniconda/Miniconda3-$VERSION-Linux-x86_64.sh"
     fi
     curl "$URL" > miniconda.sh
     bash miniconda.sh -b -f -p $CONDA_ROOT
