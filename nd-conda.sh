@@ -6,6 +6,12 @@ VERSION="4.7.12"
 if [[ $# == 2 ]]; then
     CONDA_ROOT=$1
     VERSION=$2
+elif [[ $# == 3 ]]; then
+    # Starting conda v4.8, the repo path now contains the python version: 3.7 or 3.8. This codepath handles that
+    # Could add more validation for version types, but we can also ignore here
+    CONDA_ROOT=$1
+    VERSION=$2
+    PY_VERSION=$3
 elif [[ $# == 1 ]]; then
     CONDA_ROOT=$1
 else
@@ -24,9 +30,16 @@ if [[ ! -f $CONDA_ROOT/installed ]]; then
         sudo chown $USER $CONDA_ROOT
     fi
     if [[ "$(uname)" == "Darwin" ]]; then
-        URL="https://repo.continuum.io/miniconda/Miniconda3-$VERSION-MacOSX-x86_64.sh"
+        OS_VERSION="MacOSX-x86_64"
     else
-        URL="https://repo.continuum.io/miniconda/Miniconda3-$VERSION-Linux-x86_64.sh"
+        OS_VERSION="Linux-x86_64"
+    fi
+    # Need a second check to see if we need to write py37/py38 into the URL for conda versions > 4.8.0
+    # Semantic versioning will guarantee order for us here.
+    if [[ "$VERSION" > "4.8.0" ]]; then
+        URL="https://repo.continuum.io/miniconda/Miniconda3-${PY_VERSION}_${VERSION}-${OS_VERSION}.sh"
+    else
+        URL="https://repo.continuum.io/miniconda/Miniconda3-${VERSION}-${OS_VERSION}.sh"
     fi
     curl -L "$URL" > miniconda.sh
     bash miniconda.sh -b -f -p $CONDA_ROOT
