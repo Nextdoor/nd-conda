@@ -54,8 +54,6 @@ if [[ ! -f $CONDA_ROOT/installed ]]; then
     else
         URL="https://repo.continuum.io/miniconda/Miniconda3-${PY_VERSION}_${VERSION}-${OS_VERSION}.sh"
     fi
-    echo $URL
-    exit 1
     curl -L "$URL" > miniconda.sh
     bash miniconda.sh -b -f -p $CONDA_ROOT
     rm -f miniconda.sh
