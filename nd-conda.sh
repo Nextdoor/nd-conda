@@ -30,7 +30,11 @@ if [[ ! -f $CONDA_ROOT/installed ]]; then
         sudo chown $USER $CONDA_ROOT
     fi
     if [[ "$(uname)" == "Darwin" ]]; then
-        OS_VERSION="MacOSX-x86_64"
+        if [[ "$(uname -m)" == "x86_64" ]]; then
+            OS_VERSION="MacOSX-x86_64"
+        else
+            OS_VERSION="MacOSX-arm64"
+        fi
     else
         OS_VERSION="Linux-x86_64"
     fi
