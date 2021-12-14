@@ -3,6 +3,15 @@
 
 VERSION="4.7.12"
 
+verlte() {
+    [  "$1" = "`echo -e "$1\n$2" | sort -V | head -n1`" ]
+}
+
+verlt() {
+    [ "$1" = "$2" ] && return 1 || verlte $1 $2
+}
+
+
 if [[ $# == 2 ]]; then
     CONDA_ROOT=$1
     VERSION=$2
@@ -40,11 +49,13 @@ if [[ ! -f $CONDA_ROOT/installed ]]; then
     fi
     # Need a second check to see if we need to write py37/py38 into the URL for conda versions > 4.8.0
     # Semantic versioning will guarantee order for us here.
-    if [[ "$VERSION" > "4.8.0" ]]; then
-        URL="https://repo.continuum.io/miniconda/Miniconda3-${PY_VERSION}_${VERSION}-${OS_VERSION}.sh"
-    else
+    if verlte "$VERSION" "4.8.0"; then
         URL="https://repo.continuum.io/miniconda/Miniconda3-${VERSION}-${OS_VERSION}.sh"
+    else
+        URL="https://repo.continuum.io/miniconda/Miniconda3-${PY_VERSION}_${VERSION}-${OS_VERSION}.sh"
     fi
+    echo $URL
+    exit 1
     curl -L "$URL" > miniconda.sh
     bash miniconda.sh -b -f -p $CONDA_ROOT
     rm -f miniconda.sh
